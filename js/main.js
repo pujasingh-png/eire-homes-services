@@ -26,39 +26,3 @@ document.querySelectorAll('.faq-q').forEach(btn => {
     btn.setAttribute('aria-expanded', String(!open));
   });
 });
-
-// ── Contact form — submits to Netlify via fetch ──
-const form = document.getElementById('contact-form');
-if (form) {
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const btn = form.querySelector('button[type="submit"]');
-    const original = btn.innerHTML;
-
-    btn.innerHTML = 'Sending...';
-    btn.disabled = true;
-
-    const formData = new FormData(form);
-    formData.append('form-name', 'contact');
-
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(formData).toString()
-    })
-    .then(() => {
-      btn.innerHTML = 'Sent — we\'ll be in touch ✓';
-      btn.style.background = '#2F7D5B';
-      form.reset();
-      setTimeout(() => {
-        btn.innerHTML = original;
-        btn.disabled = false;
-        btn.style.background = '';
-      }, 4000);
-    })
-    .catch(() => {
-      btn.innerHTML = 'Something went wrong — try again';
-      btn.disabled = false;
-    });
-  });
-}
