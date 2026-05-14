@@ -185,9 +185,8 @@ body[data-palette="slate"] .btn-amber { color: #0B0C0E; }
   align-items: center;
   gap: 28px;
   padding: 10px var(--pad-x);
-  background: color-mix(in oklab, var(--c-paper) 80%, transparent);
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  background: #ffffff;
+  backdrop-filter: none;
   border-bottom: 1px solid color-mix(in oklab, var(--c-ink) 8%, transparent);
 }
 .nav-logo {
@@ -874,21 +873,35 @@ body[data-palette="slate"] .btn-amber { color: #0B0C0E; }
 .team-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+  gap: 28px;
 }
 .team-card {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 250px 1fr;
   gap: 0;
-  background: var(--c-paper);
+  background: #fff;
   border: 1px solid var(--c-line);
-  border-radius: var(--r-md);
+  border-radius: var(--r-lg);
   overflow: hidden;
+  box-shadow: 0 2px 12px rgba(15,27,34,.06), 0 1px 3px rgba(15,27,34,.04);
+  transition: box-shadow .25s ease, transform .25s ease;
+}
+.team-card:hover {
+  box-shadow: 0 10px 36px rgba(15,27,34,.12), 0 2px 8px rgba(15,27,34,.06);
+  transform: translateY(-2px);
 }
 .team-portrait {
   position: relative;
-  aspect-ratio: 5 / 6;
+  height: 100%;
+  min-height: 330px;
   background: var(--c-teal-900);
+}
+.team-portrait::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(15,27,34,.7) 0%, transparent 50%);
+  pointer-events: none;
 }
 .portrait-svg { width: 100%; height: 100%; display: block; }
 .portrait-photo {
@@ -896,50 +909,49 @@ body[data-palette="slate"] .btn-amber { color: #0B0C0E; }
   object-fit: cover;
   object-position: center 18%;
   display: block;
-  filter: saturate(.95) contrast(1.02);
+  filter: saturate(.95) contrast(1.03);
 }
 .team-tenure {
   position: absolute;
-  bottom: 12px; left: 12px;
+  bottom: 16px; left: 16px;
   font-family: var(--ff-mono);
-  font-size: 11px;
+  font-size: 13px;
+  font-weight: 700;
   letter-spacing: .04em;
-  color: var(--c-paper);
-  background: rgba(0,0,0,.4);
-  padding: 4px 8px;
-  border-radius: 4px;
-  backdrop-filter: blur(4px);
+  color: #fff;
+  z-index: 1;
+  line-height: 1;
 }
 .team-body {
-  padding: 28px 30px;
-  display: flex; flex-direction: column; gap: 14px;
+  padding: 32px 34px;
+  display: flex; flex-direction: column; gap: 16px;
 }
 .team-meta {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding-bottom: 14px;
+  gap: 8px;
+  padding-bottom: 16px;
   border-bottom: 1px solid var(--c-line);
 }
 .team-role {
   font-family: var(--ff-mono);
-  font-size: 10.5px;
-  letter-spacing: .08em;
+  font-size: 10px;
+  letter-spacing: .09em;
   text-transform: uppercase;
-  color: var(--c-teal);
-  font-weight: 600;
+  color: var(--c-amber-2);
+  font-weight: 700;
   align-self: flex-start;
-  padding: 4px 9px;
-  border: 1px solid color-mix(in oklab, var(--c-teal) 35%, transparent);
+  padding: 4px 10px;
+  border: 1px solid color-mix(in oklab, var(--c-amber) 45%, transparent);
   border-radius: 999px;
-  background: color-mix(in oklab, var(--c-teal) 6%, transparent);
+  background: color-mix(in oklab, var(--c-amber) 10%, transparent);
 }
 .team-meta h3 {
-  font-size: 1.55rem;
-  font-weight: 600;
-  letter-spacing: -0.025em;
+  font-size: 1.85rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
   color: var(--c-ink);
-  margin-top: 6px;
+  margin-top: 4px;
   line-height: 1.05;
 }
 .team-sub {
@@ -948,25 +960,27 @@ body[data-palette="slate"] .btn-amber { color: #0B0C0E; }
   font-size: 1rem;
   color: var(--c-ink-soft);
   letter-spacing: -0.005em;
-  margin-top: 2px;
 }
 .team-body p {
   font-size: 14.5px;
   color: var(--c-ink-soft);
-  line-height: 1.55;
+  line-height: 1.6;
+  flex: 1;
 }
 .team-tags {
   display: flex; gap: 6px; flex-wrap: wrap;
   margin-top: auto;
+  padding-top: 4px;
 }
 .team-tags li {
   font-family: var(--ff-mono);
-  font-size: 10.5px;
+  font-size: 10px;
   text-transform: uppercase;
-  letter-spacing: .06em;
-  color: var(--c-ink-soft);
-  border: 1px solid var(--c-line-2);
-  padding: 4px 9px;
+  letter-spacing: .07em;
+  color: var(--c-teal);
+  border: 1px solid color-mix(in oklab, var(--c-teal) 30%, transparent);
+  background: color-mix(in oklab, var(--c-teal) 5%, transparent);
+  padding: 4px 10px;
   border-radius: 999px;
 }
 
@@ -1122,6 +1136,13 @@ body[data-palette="slate"] .btn-amber { color: #0B0C0E; }
 .contact-list {
   display: flex; flex-direction: column;
   border-top: 1px solid var(--c-line);
+}
+.contact-map {
+  margin-top: 28px;
+  height: 220px;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 1px solid var(--c-line);
 }
 .contact-row {
   display: grid;
