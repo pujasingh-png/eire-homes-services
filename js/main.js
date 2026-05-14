@@ -10,7 +10,6 @@ if (burger && mobileMenu) {
     document.body.style.overflow = open ? '' : 'hidden';
   });
 
-  // Close menu when a link is clicked
   mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
     link.addEventListener('click', () => {
       burger.setAttribute('aria-expanded', 'false');
@@ -28,21 +27,35 @@ document.querySelectorAll('.faq-q').forEach(btn => {
   });
 });
 
-// ── Contact form ──
+// ── Contact form — submits to Netlify via fetch ──
 const form = document.getElementById('contact-form');
 if (form) {
   form.addEventListener('submit', e => {
     e.preventDefault();
     const btn = form.querySelector('button[type="submit"]');
     const original = btn.innerHTML;
-    btn.innerHTML = 'Sent — we\u2019ll be in touch ✓';
+
+    btn.innerHTML = 'Sending...';
     btn.disabled = true;
-    btn.style.opacity = '.85';
-    setTimeout(() => {
-      btn.innerHTML = original;
-      btn.disabled = false;
-      btn.style.opacity = '';
+
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(new FormData(form)).toString()
+    })
+    .then(() => {
+      btn.innerHTML = 'Sent — we\'ll be in touch ✓';
+      btn.style.background = '#2F7D5B';
       form.reset();
-    }, 3200);
+      setTimeout(() => {
+        btn.innerHTML = original;
+        btn.disabled = false;
+        btn.style.background = '';
+      }, 4000);
+    })
+    .catch(() => {
+      btn.innerHTML = 'Something went wrong — try again';
+      btn.disabled = false;
+    });
   });
 }
