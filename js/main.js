@@ -38,10 +38,13 @@ if (form) {
     btn.innerHTML = 'Sending...';
     btn.disabled = true;
 
+    const formData = new FormData(form);
+    formData.append('form-name', 'contact');
+
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(new FormData(form)).toString()
+      body: new URLSearchParams(formData).toString()
     })
     .then(() => {
       btn.innerHTML = 'Sent — we\'ll be in touch ✓';
